@@ -1,15 +1,35 @@
-import React from 'react';
-import { Mod } from './Modal.styles';
+import React, { Component } from 'react';
+import { Mod, Overlay } from './Modal.styles';
+import PropTypes from 'prop-types';
 
-function Modal({ imageObj }) {
-  return (
-    <div>
-        {imageObj.hits.map(({id, largeImageURL})=>
-      <Mod key={id}>
-        <img src={largeImageURL} alt="piacture" />
-      </Mod>)}
-    </div>
-  );
+export default class Modal extends Component {
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.props.onClose();
+    }
+  };
+
+  render() {
+    const { modal, onClick } = this.props;
+    return (
+      <Overlay onClick={onClick}>
+        <Mod>
+          <img src={modal} alt="peacture" />
+        </Mod>
+      </Overlay>
+    );
+  }
 }
-
-export default Modal;
+Modal.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  modal: PropTypes.string.isRequired,
+};
