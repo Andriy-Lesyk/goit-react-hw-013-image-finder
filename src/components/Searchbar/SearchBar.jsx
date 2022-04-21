@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import {HiOutlineSearch} from "react-icons/hi"
 import PropTypes from 'prop-types';
 import {
   SearchForm,
   SearchFormButton,
-  SearchFormButtonLabel,
   SearchFormInput,
   SearchBars,
 } from './SearchBar.styled';
@@ -13,8 +13,8 @@ export default class SearchBar extends Component {
     search: '',
   };
 
-  handleChange = event => {
-    this.setState({ search: event.currentTarget.value.toLowerCase() });
+ handleChange = event => {
+    this.setState({ search: event.currentTarget.value });
   };
 
   handleSubmit = event => {
@@ -24,16 +24,17 @@ export default class SearchBar extends Component {
       return;
     }
     this.props.onSubmit(this.state.search);
-    this.setState({ search: '' });
+    
   };
 
   render() {
+    
     return (
       <div>
         <SearchBars>
           <SearchForm onSubmit={this.handleSubmit}>
             <SearchFormButton type="submit">
-              <SearchFormButtonLabel>Search</SearchFormButtonLabel>
+              <HiOutlineSearch style={{width: "25px", height: "25px" }}/>
             </SearchFormButton>
             <SearchFormInput
               type="text"

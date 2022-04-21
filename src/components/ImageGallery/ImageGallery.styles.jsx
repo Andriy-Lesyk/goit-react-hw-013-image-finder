@@ -13,5 +13,7 @@ export const ImageGaller = styled.ul`
   margin-right: auto;
 `
 export const Div = styled.div`
-  display: flex
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
 `

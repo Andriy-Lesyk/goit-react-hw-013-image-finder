@@ -3,6 +3,8 @@ import { Mod, Overlay } from './Modal.styles';
 import PropTypes from 'prop-types';
 
 export default class Modal extends Component {
+
+
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
@@ -17,19 +19,25 @@ export default class Modal extends Component {
     }
   };
 
+   handleBackdropClick = event => {
+    if (event.target === event.currentTarget) {
+      this.props.onClose();
+      console.log('works');
+    }
+  };
+
   render() {
-    const { modal, onClick } = this.props;
+    const { modal} = this.props;
     return (
-      <Overlay onClick={onClick}>
+      <Overlay onClick={this.handleBackdropClick}>
         <Mod>
-          <img src={modal} alt="peacture" />
+          <img src={modal} alt="foto" />
         </Mod>
       </Overlay>
     );
   }
 }
 Modal.propTypes = {
-  onClick: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   modal: PropTypes.string.isRequired,
 };
