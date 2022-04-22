@@ -27,4 +27,5 @@ export default class ImageGalleryItem extends Component {
 }
 ImageGalleryItem.propTypes = {
   srcWeb: PropTypes.string.isRequired,
+  modal: PropTypes.string.isRequired
 };

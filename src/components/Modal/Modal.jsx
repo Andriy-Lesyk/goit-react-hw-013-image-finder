@@ -3,8 +3,6 @@ import { Mod, Overlay } from './Modal.styles';
 import PropTypes from 'prop-types';
 
 export default class Modal extends Component {
-
-
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
@@ -19,15 +17,14 @@ export default class Modal extends Component {
     }
   };
 
-   handleBackdropClick = event => {
+  handleBackdropClick = event => {
     if (event.target === event.currentTarget) {
       this.props.onClose();
-      console.log('works');
     }
   };
 
   render() {
-    const { modal} = this.props;
+    const { modal } = this.props;
     return (
       <Overlay onClick={this.handleBackdropClick}>
         <Mod>

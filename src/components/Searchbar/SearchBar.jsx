@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {HiOutlineSearch} from "react-icons/hi"
+import { HiOutlineSearch } from 'react-icons/hi';
 import PropTypes from 'prop-types';
 import {
   SearchForm,
@@ -13,7 +13,7 @@ export default class SearchBar extends Component {
     search: '',
   };
 
- handleChange = event => {
+  handleChange = event => {
     this.setState({ search: event.currentTarget.value });
   };
 
@@ -24,17 +24,15 @@ export default class SearchBar extends Component {
       return;
     }
     this.props.onSubmit(this.state.search);
-    
   };
 
   render() {
-    
     return (
       <div>
         <SearchBars>
           <SearchForm onSubmit={this.handleSubmit}>
             <SearchFormButton type="submit">
-              <HiOutlineSearch style={{width: "25px", height: "25px" }}/>
+              <HiOutlineSearch style={{ width: '25px', height: '25px' }} />
             </SearchFormButton>
             <SearchFormInput
               type="text"

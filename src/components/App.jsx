@@ -15,7 +15,7 @@ export default class App extends Component {
   };
 
   handleFormSubmit = search => {
-    this.setState({ search, page: 1, response:[] });
+    this.setState({ search, page: 1, response: [] });
   };
 
   componentDidUpdate(_, prevState) {
@@ -40,11 +40,13 @@ export default class App extends Component {
             alert(`По Вашому запиту нічого не знайдено!`);
             return;
           }
-          const hits = response.hits.map(({ webformatURL, id, largeImageURL }) => ({
-            webformatURL,
-            id,
-            largeImageURL,
-          }));
+          const hits = response.hits.map(
+            ({ webformatURL, id, largeImageURL }) => ({
+              webformatURL,
+              id,
+              largeImageURL,
+            })
+          );
           this.setState({
             response: [...this.state.response, ...hits],
             total: response.total,
@@ -67,7 +69,7 @@ export default class App extends Component {
     return (
       <div>
         <SearchBar onSubmit={this.handleFormSubmit} />
-        {response && <ImageGallery imageObj={response} loading={loading} />}
+        {response && <ImageGallery imageArray={response} loading={loading} />}
         <Div>
           {response.length !== 0 && response.length < total && (
             <Button onClick={this.handleClick} />
