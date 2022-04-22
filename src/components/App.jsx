@@ -9,12 +9,13 @@ export default class App extends Component {
   state = {
     search: '',
     loading: false,
-    response: null,
+    response: [],
     page: 1,
+    total: 0,
   };
 
   handleFormSubmit = search => {
-    this.setState({ search, page: 1 });
+    this.setState({ search, page: 1, response:[] });
   };
 
   componentDidUpdate(_, prevState) {
@@ -39,8 +40,15 @@ export default class App extends Component {
             alert(`По Вашому запиту нічого не знайдено!`);
             return;
           }
-          this.setState({ response: response.hits });
-          console.log(response.hits);
+          const hits = response.hits.map(({ webformatURL, id, largeImageURL }) => ({
+            webformatURL,
+            id,
+            largeImageURL,
+          }));
+          this.setState({
+            response: [...this.state.response, ...hits],
+            total: response.total,
+          });
         })
         .finally(this.setState({ loading: false }));
     }
@@ -55,13 +63,15 @@ export default class App extends Component {
   };
 
   render() {
-    const { loading, response } = this.state;
+    const { loading, response, total } = this.state;
     return (
       <div>
         <SearchBar onSubmit={this.handleFormSubmit} />
         {response && <ImageGallery imageObj={response} loading={loading} />}
         <Div>
-          {response && <Button onClick={this.handleClick} />}
+          {response.length !== 0 && response.length < total && (
+            <Button onClick={this.handleClick} />
+          )}
           {loading && <Loader />}
         </Div>
       </div>
